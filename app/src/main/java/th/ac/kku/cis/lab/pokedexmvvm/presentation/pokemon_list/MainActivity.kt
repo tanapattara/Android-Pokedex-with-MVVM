@@ -27,8 +27,13 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, PokemonListViewModelFactory(mainRepository)).get(PokemonListViewModel::class.java)
 
+        /*
         viewModel.pokemonList.observe(this, {
             adapter.setPokemonData(it)
+        })
+        */
+        viewModel.pokemonListItem.observe(this, {
+            adapter.setPokemonItemData(it)
         })
 
         viewModel.errorMessage.observe(this, {
@@ -43,6 +48,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        viewModel.getAllPokemon()
+        //viewModel.getAllPokemon()
+        viewModel.loadPokemonPaginated()
     }
 }

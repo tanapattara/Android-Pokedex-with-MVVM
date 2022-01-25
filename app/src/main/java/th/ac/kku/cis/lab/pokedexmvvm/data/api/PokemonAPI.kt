@@ -5,11 +5,25 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 import th.ac.kku.cis.lab.pokedexmvvm.data.api.model.PokemonAPIResult
+import th.ac.kku.cis.lab.pokedexmvvm.data.api.model.PokemonInfo
 
 interface PokemonAPI {
     @GET("pokemon/")
     suspend fun getPokemons(): Response<PokemonAPIResult>
+
+    @GET("pokemon/")
+    suspend fun getPokemonsList(
+        @Query("limit") limit: Int,
+        @Query("offset") offset:Int
+    ): Response<PokemonAPIResult>
+
+    @GET("pokemon/{name}")
+    suspend fun getPokemonInfo(
+        @Path("name") name:String
+    ): Response<PokemonInfo>
 
     companion object {
         var BASE_URL = "https://pokeapi.co/api/v2/"

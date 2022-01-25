@@ -6,15 +6,21 @@ import androidx.recyclerview.widget.RecyclerView
 import th.ac.kku.cis.lab.pokedexmvvm.data.api.model.Result
 import th.ac.kku.cis.lab.pokedexmvvm.databinding.RecyclerviewItemBinding
 import com.bumptech.glide.Glide
+import th.ac.kku.cis.lab.pokedexmvvm.data.model.PokemonListItem
 
 class PokemonListAdapter : RecyclerView.Adapter<PokemonListAdapter.PokemonListViewHolder>() {
 
     var pokemonList = mutableListOf<Result>()
+    var pokemonListItem = mutableListOf<PokemonListItem>()
 
     class PokemonListViewHolder(val binding: RecyclerviewItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     fun setPokemonData(data: List<Result>) {
         this.pokemonList = data.toMutableList()
+        notifyDataSetChanged()
+    }
+    fun setPokemonItemData(data: List<PokemonListItem>) {
+        this.pokemonListItem = data.toMutableList()
         notifyDataSetChanged()
     }
 
@@ -25,13 +31,13 @@ class PokemonListAdapter : RecyclerView.Adapter<PokemonListAdapter.PokemonListVi
     }
 
     override fun onBindViewHolder(holder: PokemonListViewHolder, position: Int) {
-        val pokemon = pokemonList[position]
+        val pokemon = pokemonListItem[position]
         holder.binding.tvPokemonName.text = pokemon.name
-        //Glide.with(holder.itemView.context).load(pokemon.imageUrl).into(holder.binding.imageview)
+        Glide.with(holder.itemView.context).load(pokemon.imageUrl).into(holder.binding.imageView)
     }
 
     override fun getItemCount(): Int {
-        return pokemonList.size
+        return pokemonListItem.size
     }
 
 }
