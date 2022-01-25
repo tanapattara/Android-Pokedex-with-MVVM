@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidPokedexWithMVVM">
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.pokemon_list.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
