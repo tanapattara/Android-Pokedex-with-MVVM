@@ -7,7 +7,7 @@ import th.ac.kku.cis.lab.pokedexmvvm.data.model.PokemonAPIResult
 
 interface PokemonAPI {
     @GET("pokemon/")
-    suspend fun getPokemons(): PokemonAPIResult
+    fun getPokemons(): PokemonAPIResult
 
     companion object {
         var BASE_URL = "https://pokeapi.co/api/v2/"
