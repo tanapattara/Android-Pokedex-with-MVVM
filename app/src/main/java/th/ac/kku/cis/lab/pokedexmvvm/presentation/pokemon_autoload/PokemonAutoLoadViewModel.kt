@@ -16,8 +16,12 @@ class PokemonAutoLoadViewModel constructor(private val repository: PokemonReposi
     var job: Job? = null
 
     fun loadPokemonListItem(){
+        var curPokemonList = listOf<PokemonListItem>()
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             curPokemon = if(pokemonListItem.value == null) 0 else pokemonListItem.value!!.size
+            if(curPokemon > 0)
+                curPokemonList = pokemonListItem.value!!
+
             var offset = if(curPokemon == 0) 0 else curPokemon + LIMIT
             val result = repository.getPokemonsList(LIMIT, offset)
 
@@ -34,6 +38,9 @@ class PokemonAutoLoadViewModel constructor(private val repository: PokemonReposi
                         PokemonListItem(result.name, url, number.toInt())
                     }
                     loading.value = false
+
+                    curPokemonList += pokemonItem
+                    pokemonListItem.postValue(curPokemonList)
                 }else{
                     onError("Error : ${result.message()}")
                 }

@@ -2,6 +2,8 @@ package th.ac.kku.cis.lab.pokedexmvvm.presentation.pokemon_autoload
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -12,23 +14,28 @@ import androidx.recyclerview.widget.RecyclerView
 import th.ac.kku.cis.lab.pokedexmvvm.data.api.PokemonAPI
 import th.ac.kku.cis.lab.pokedexmvvm.data.repository.PokemonRepository
 import th.ac.kku.cis.lab.pokedexmvvm.databinding.ActivityPokemonListBinding
+import th.ac.kku.cis.lab.pokedexmvvm.presentation.pokemon_list.PokemonListAdapter
+import th.ac.kku.cis.lab.pokedexmvvm.presentation.pokemon_list.PokemonListViewModel
 
 class PokemonAutoLoadActivity : AppCompatActivity() {
+
+    lateinit var viewModel: PokemonAutoLoadViewModel
+    private val adapter = PokemonAutoLoadAdapter()
+    lateinit var binding: ActivityPokemonListBinding
+    var loading: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_pokemon_auto_load)
-        val adapter = PokemonAutoLoadAdapter()
-        val binding = ActivityPokemonListBinding.inflate(layoutInflater)
+        binding = ActivityPokemonListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.recyclerView.adapter = adapter
 
         val retrofitService = PokemonAPI.getInstance()
         val mainRepository = PokemonRepository(retrofitService)
-        val viewModel: PokemonAutoLoadViewModel = ViewModelProvider(this,
+        viewModel = ViewModelProvider(this,
             PokemonAutoLoadViewModelFactory(mainRepository)).get(PokemonAutoLoadViewModel::class.java)
         viewModel.pokemonListItem.observe(this) {
-            Log.d("pokemon", "setPokemonItemData")
             adapter.setPokemonItemData(it)
         }
         viewModel.errorMessage.observe(this) {
@@ -42,6 +49,29 @@ class PokemonAutoLoadActivity : AppCompatActivity() {
             }
         })
         viewModel.loadPokemonListItem()
+        binding.recyclerView.apply{
+            addOnScrollListener(listener)
+        }
     }
+    val listener: RecyclerView.OnScrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+        }
 
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val itemCount = adapter.itemCount
+            var layoutManager:LinearLayoutManager = binding.recyclerView.layoutManager as LinearLayoutManager
+            val itemPosition = layoutManager.findLastVisibleItemPosition()
+            //Log.d("pokemon", "onScrolled itemCount :" + itemCount + " position " + itemPosition )
+            if (!loading && itemCount <= (itemPosition + 1)) {
+                loading = true
+                Log.d("pokemon", "Loading")
+                Handler(Looper.getMainLooper()).postDelayed({
+                    loading = false
+                    viewModel.loadPokemonListItem()
+                }, 3000)
+            }
+        }
+    }
 }
