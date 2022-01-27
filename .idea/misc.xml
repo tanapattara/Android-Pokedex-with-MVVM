@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/tanap/StudioProjects/AndroidPokedexwithMVVM/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/tanap/StudioProjects/AndroidPokedexwithMVVM/app/src/main/res/layout/activity_pokemon_auto_load.xml" value="0.31197916666666664" />
+        <entry key="..\:/Users/tanap/StudioProjects/AndroidPokedexwithMVVM/app/src/main/res/layout/activity_pokemon_detail.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/tanap/StudioProjects/AndroidPokedexwithMVVM/app/src/main/res/layout/activity_pokemon_list.xml" value="0.3625" />
         <entry key="..\:/Users/tanap/StudioProjects/AndroidPokedexwithMVVM/app/src/main/res/layout/activity_pokemon_paging.xml" value="0.3625" />
         <entry key="..\:/Users/tanap/StudioProjects/AndroidPokedexwithMVVM/app/src/main/res/layout/item_load_state.xml" value="0.2635416666666667" />

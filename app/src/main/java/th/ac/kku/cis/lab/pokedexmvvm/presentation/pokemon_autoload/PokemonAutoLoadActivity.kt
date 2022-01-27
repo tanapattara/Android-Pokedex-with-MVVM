@@ -20,7 +20,7 @@ import th.ac.kku.cis.lab.pokedexmvvm.presentation.pokemon_list.PokemonListViewMo
 class PokemonAutoLoadActivity : AppCompatActivity() {
 
     lateinit var viewModel: PokemonAutoLoadViewModel
-    private val adapter = PokemonAutoLoadAdapter()
+    private val adapter = PokemonAutoLoadAdapter(this)
     lateinit var binding: ActivityPokemonListBinding
     var loading: Boolean = false
 
@@ -54,10 +54,6 @@ class PokemonAutoLoadActivity : AppCompatActivity() {
         }
     }
     val listener: RecyclerView.OnScrollListener = object : RecyclerView.OnScrollListener() {
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            super.onScrollStateChanged(recyclerView, newState)
-        }
-
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
             val itemCount = adapter.itemCount

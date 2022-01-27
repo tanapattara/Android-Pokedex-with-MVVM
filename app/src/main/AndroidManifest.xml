@@ -12,13 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidPokedexWithMVVM">
         <activity
+            android:name=".presentation.pokemon_detail.PokemonDetailActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.pokemon_autoload.PokemonAutoLoadActivity" />
+        </activity>
+        <activity
             android:name=".presentation.pokemon_autoload.PokemonAutoLoadActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.pokemon_list.PokemonListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.pokemon_paging.PokemonPagingActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.MainActivity"
