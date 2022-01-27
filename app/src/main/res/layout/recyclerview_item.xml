@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivPokemon"
         android:layout_width="128dp"
         android:layout_height="128dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,7 +21,7 @@
         android:layout_marginStart="16dp"
         android:text="TextView"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/ivPokemon"
+        app:layout_constraintStart_toEndOf="@+id/ivPokemon"
+        app:layout_constraintTop_toTopOf="@+id/ivPokemon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

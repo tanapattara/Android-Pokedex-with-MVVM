@@ -16,7 +16,7 @@ interface PokemonAPI {
 
     @GET("pokemon/")
     suspend fun getPokemonsList(
-        @Query("limit") limit: Int,
+        @Query("limit") limit: Int = 20,
         @Query("offset") offset:Int
     ): Response<PokemonAPIResult>
 
@@ -24,6 +24,12 @@ interface PokemonAPI {
     suspend fun getPokemonInfo(
         @Path("name") name:String
     ): Response<PokemonInfo>
+
+    @GET("pokemon/")
+    suspend fun getPokemonswithPaging(
+        @Query("limit") limit: Int = 20,
+        @Query("offset") offset:Int
+    ): Response<PokemonAPIResult>
 
     companion object {
         var BASE_URL = "https://pokeapi.co/api/v2/"
