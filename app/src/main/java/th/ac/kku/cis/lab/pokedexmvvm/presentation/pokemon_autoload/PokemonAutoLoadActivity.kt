@@ -66,7 +66,7 @@ class PokemonAutoLoadActivity : AppCompatActivity() {
                 Handler(Looper.getMainLooper()).postDelayed({
                     loading = false
                     viewModel.loadPokemonListItem()
-                }, 3000)
+                }, 1500)
             }
         }
     }
